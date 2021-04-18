@@ -1,0 +1,16 @@
+[Unit]
+Description=API Nul de tibo
+
+[Service]
+WorkingDirectory=/root/
+LimitNOFILE=1000000
+ExecStart=/root/API
+Restart=always
+RestartSec=1
+
+ # Output to syslog
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=api-nul
+#User=<alternate user>
+#Group=<alternate group>
