@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	//Starts hosting the API
 	go hostAPI()
 
 	// Wait here until CTRL-C or other term signal is received.

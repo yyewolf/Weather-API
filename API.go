@@ -20,7 +20,7 @@ type response struct {
 }
 
 func shouldIHaveMyLightsOn(w http.ResponseWriter, r *http.Request) {
-
+	//Request their API
 	req, _ := http.NewRequest("GET", "https://api.sunrise-sunset.org/json?lat=36.7201600&lng=2.376776", nil)
 	client := &http.Client{}
 	resp, _ := client.Do(req)
@@ -30,12 +30,17 @@ func shouldIHaveMyLightsOn(w http.ResponseWriter, r *http.Request) {
 
 	var msg response
 	json.Unmarshal(b, &msg)
+	//Takes only the hour part
 	msg.Result.Sunset = strings.Split(msg.Result.Sunset, ":")[0]
 	msg.Result.Sunrise = strings.Split(msg.Result.Sunrise, ":")[0]
+
+	//Converts to UTC
 	heureLevee, _ := strconv.Atoi(msg.Result.Sunrise)
 	heureCouche, _ := strconv.Atoi(msg.Result.Sunset)
 	heureCouche += 12
-	if (time.Now().Hour() >= heureCouche) || (time.Now().Hour() <= heureLevee) {
+
+	//Check if we're in the correct zone
+	if (time.UTC().Hour() >= heureCouche) || (time.UTC().Hour() <= heureLevee) {
 		fmt.Fprint(w, "yes")
 		return
 	}
