@@ -40,7 +40,7 @@ func shouldIHaveMyLightsOn(w http.ResponseWriter, r *http.Request) {
 	heureCouche += 12
 
 	//Check if we're in the correct zone
-	if (time.UTC().Hour() >= heureCouche) || (time.UTC().Hour() <= heureLevee) {
+	if (time.Now().UTC().Hour() >= heureCouche) || (time.Now().UTC().Hour() <= heureLevee) {
 		fmt.Fprint(w, "yes")
 		return
 	}
