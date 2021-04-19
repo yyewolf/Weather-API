@@ -14,3 +14,7 @@ StandardError=syslog
 SyslogIdentifier=api-nul
 #User=<alternate user>
 #Group=<alternate group>
+
+[Install]
+# Components of this application should be started at boot time
+WantedBy=multi-user.target
